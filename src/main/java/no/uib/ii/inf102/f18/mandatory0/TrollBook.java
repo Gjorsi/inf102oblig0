@@ -29,15 +29,13 @@ public class TrollBook {
 		io.write(sb.toString());
 		io.close();
 	}
-
 }
 
 // a map object to insert into linkedlist data structure -> to be able to sort words based on their page number
 class map<K extends Comparable<K>, V> implements Comparable<map<K, V>> {
-
 	K key;
 	V val;
-	
+
 	public map(K key, V val) {
 		this.key = key;
 		this.val = val;
@@ -49,6 +47,5 @@ class map<K extends Comparable<K>, V> implements Comparable<map<K, V>> {
 	
 	public String toString() {
 		return this.val.toString();
-	}
-	
+	}	
 }

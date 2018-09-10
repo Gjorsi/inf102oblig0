@@ -89,6 +89,27 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		return size;
 	}
 
+	public E[] toArray(E[] a) {
+		//nothing to put into array, or array is not big enough to hold the linkedlist
+		if (size<1 || a.length<size) return a;
+		
+		node t = first;
+		for (int i=0; i<size; i++) {
+			a[i] = t.val;
+			t = t.next;
+		}
+		return a;
+	}
+	
+	private node findNodeBefore(int index) {
+		node t = first;
+		for (int i=1; i<index; i++) {
+			t = t.next;
+		}
+		
+		return t;
+	}
+	
 	public void sort() {		
 		first = mergeSort(first);
 	}
@@ -106,6 +127,7 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		
 		node afterMid = mid.next;
 		
+		// sever connection between left and right parts
 		mid.next = null;
 		
 		node left = mergeSort(t);
@@ -133,65 +155,45 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	}
 	
 	private node merge(node left, node right) {
-		node r;
-		node f;
+		node curr;
+		
+		node head;
 		
 		if (left.val == null) return right;
 		if (right.val == null) return left;
 		
 		//set first element of new linkedlist
 		if (left.val.compareTo(right.val) <= 0) {
-			r = f = left;
+			curr = head = left;
 			left = left.next;
 		} else {
-			r = f = right;
+			curr = head = right;
 			right = right.next;
 		}
 		
 		// while both left and right have more elements, keep adding the lesser of those to the new list
 		while (left != null && right !=  null) {
 			if (left.val.compareTo(right.val) <= 0) {
-				r.next = left;
-				r = r.next;
+				curr.next = left;
+				curr = curr.next;
 				left = left.next;
 			} else {
-				r.next = right;
-				r = r.next;
+				curr.next = right;
+				curr = curr.next;
 				right = right.next;
 			}
 		}
 		
 		// either left or right or both is empty, append the potentially remaining list to the new list
 		if (left != null) {
-			r.next = left;
+			curr.next = left;
 		}
 		if (right != null) {
-			r.next = right;
+			curr.next = right;
 		}
 		
 		// return head of new (sorted) list
-		return f;
-	}
-
-	public E[] toArray(E[] a) {
-		//nothing to put into array, or array is not big enough to hold the linkedlist
-		if (size<1 || a.length<size) return a;
-		
-		node t = first;
-		for (int i=0; i<size; i++) {
-			a[i] = t.val;
-			t = t.next;
-		}
-		return a;
-	}
-	
-	private node findNodeBefore(int index) {
-		node t = first;
-		for (int i=1; i<index; i++) {
-			t = t.next;
-		}
-		
-		return t;
+		return head;
 	}
 	
 	class node {
