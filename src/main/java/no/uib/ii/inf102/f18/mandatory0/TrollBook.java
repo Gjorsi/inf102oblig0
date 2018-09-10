@@ -1,5 +1,7 @@
 package no.uib.ii.inf102.f18.mandatory0;
 
+import java.util.Scanner;
+
 public class TrollBook {
 
 	public TrollBook() {
@@ -10,15 +12,24 @@ public class TrollBook {
 		
 		SortableLinkedList<map<Integer, String>> list = new SortableLinkedList<>();
 		
-		list.add(new map<Integer, String>(3,"three"));
-		list.add(new map<Integer, String>(2,"two"));
-		list.add(new map<Integer, String>(1,"one"));
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int v;
+		String s;
+		
+		for (int i=0; i<n ; i++) {
+			s = sc.next();
+			v = sc.nextInt();
+			list.add(new map<Integer, String>(v, s));
+		}
 		
 		list.sort();
 		
-		for (int i=0; i<3 ; i++) {
-			System.out.println(list.get(i).toString());
+		for (int i=0; i<n ; i++) {
+			System.out.print(list.get(i).toString() + " ");
 		}
+		
+		sc.close();
 		
 	}
 
