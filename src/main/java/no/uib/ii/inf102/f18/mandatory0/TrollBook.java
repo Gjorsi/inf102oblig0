@@ -1,40 +1,38 @@
 package no.uib.ii.inf102.f18.mandatory0;
 
-import java.util.Scanner;
-
 public class TrollBook {
-
-	public TrollBook() {
-		
-	}
 
 	public static void main(String[] args) {
 		
 		SortableLinkedList<map<Integer, String>> list = new SortableLinkedList<>();
 		
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		Kattio io = new Kattio(System.in, System.out);
+		
+		int n = io.getInt();
 		int v;
 		String s;
 		
 		for (int i=0; i<n ; i++) {
-			s = sc.next();
-			v = sc.nextInt();
+			s = io.getWord();
+			v = io.getInt();
 			list.add(new map<Integer, String>(v, s));
 		}
 		
 		list.sort();
 		
+		StringBuilder sb = new StringBuilder();
+		
 		for (int i=0; i<n ; i++) {
-			System.out.print(list.get(i).toString() + " ");
+			sb.append(list.remove(0).toString()).append(" ");
 		}
 		
-		sc.close();
-		
+		io.write(sb.toString());
+		io.close();
 	}
 
 }
 
+// a map object to insert into linkedlist data structure -> to be able to sort words based on their page number
 class map<K extends Comparable<K>, V> implements Comparable<map<K, V>> {
 
 	K key;
@@ -45,7 +43,6 @@ class map<K extends Comparable<K>, V> implements Comparable<map<K, V>> {
 		this.val = val;
 	}
 	
-	@Override
 	public int compareTo(map<K, V> other) {
 		return this.key.compareTo(other.key);
 	}

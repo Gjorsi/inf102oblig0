@@ -4,13 +4,8 @@ import java.util.Iterator;
 
 public class SortableLinkedList<E extends Comparable<E>> implements ISortableList<E> {
 
-	int size;
-	node first;
-	node last;
-	
-	public SortableLinkedList() {
-		
-	}
+	private int size;
+	private node first;
 
 	public Iterator<E> iterator() {
 		if (size < 1) return null;
@@ -33,13 +28,9 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 
 	public void add(E element) {
 		if (element == null) return;
-		if (size == 0) {
-			first = new node(element, null);
-			last = first;
-		} else {
-			last.next = new node(element, null);
-			last = last.next;
-		}
+
+		node t = new node(element, first);
+		first = t;
 		size++;
 	}
 
@@ -50,9 +41,6 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		if (index == 0) {
 			t = new node(element, first);
 			first = t;
-		} else if (index == size) {
-			last.next = new node(element, null);
-			last = last.next;
 		} else {
 			node r = findNodeBefore(index);
 			t = new node(element, r.next);
@@ -63,7 +51,6 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 
 	public void clear() {
 		first = null;
-		last = null;
 		size = 0;
 	}
 
@@ -104,12 +91,6 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 
 	public void sort() {		
 		first = mergeSort(first);
-		// last node might have moved, need to reset reference to end of list
-		node t = first;
-		for (int i=0; i<size; i++) {
-			if (t.next == null) last = t;
-			else t = t.next;
-		}
 	}
 	
 	private node mergeSort(node t) {
