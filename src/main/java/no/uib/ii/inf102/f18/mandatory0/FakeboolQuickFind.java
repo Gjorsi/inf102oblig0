@@ -27,6 +27,13 @@ public class FakeboolQuickFind {
         io.close();
     }
     
+    /**
+     * Union sets containing p and q, setting the lesser(oldest) root as root of the combined set
+     * (to maintain oldest account as root)
+     * @param id	the array representing oldest known account associated with any given account in range
+     * @param p
+     * @param q
+     */
     public static void union(int[] id, int p, int q) {
         //get the oldest account associated with p or q, and set that as id
         int x = Math.min(id[p], id[q]);

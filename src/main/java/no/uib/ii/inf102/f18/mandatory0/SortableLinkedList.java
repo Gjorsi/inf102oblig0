@@ -2,6 +2,14 @@ package no.uib.ii.inf102.f18.mandatory0;
 
 import java.util.Iterator;
 
+/**
+ * Implementation of ISortableList<E> for INF102.mandatory0
+ * 
+ * @author Carl August Gjørsvik
+ *
+ * @param <E>
+ */
+
 public class SortableLinkedList<E extends Comparable<E>> implements ISortableList<E> {
 
 	private int size;
@@ -119,6 +127,13 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		return a;
 	}
 	
+	
+	/**
+	 * Returns the node linking to the given index. 
+	 * This is necessary to be able to insert / remove nodes at specific indexes.
+	 * @param index
+	 * @return t
+	 */
 	private node findNodeBefore(int index) {
 		
 		node t = first;
@@ -136,15 +151,18 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		last = findNodeBefore(size-1).next;
 	}
 	
+	/**
+	 * find the middle of given list starting with node t.
+	 * Split into two lists, equally long +/- 1
+	 * Repeat for the two lists created by splitting (recursively)
+	 * Merge on the way up the tree
+	 * @param t		the leading node of the list to sort
+	 * @return {@link #merge(node, node)} 
+	 	* the leading node of the list, now sorted
+	 */
 	private node mergeSort(node t) {
 		if (t == null || t.next == null) return t;
 		
-		/*
-		 * find the middle of given list starting with node t.
-		 * Split into two lists, equally long +/- 1
-		 * Repeat for the two lists created by splitting (recursively)
-		 * Merge on the way up the tree
-		 */
 		node mid = findMid(t);
 		
 		node afterMid = mid.next;
@@ -158,14 +176,16 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		return merge(left, right);
 	}
 	
+	/**
+	 * two "iterators" go through the given list, one at 1-step speed, the other at 2-step speed.
+	 * When the faster reaches end of list, the slower is at the mid-point
+	 * @param tSlow		the head of the given list, this parameter is used as the slow iterator
+	 * @return tSlow	this should at return be a reference to the middle element of the list
+	 */
 	private node findMid(node tSlow) {
 		if (tSlow == null) return tSlow;
 		node tFast = tSlow.next;
 		
-		/*
-		 * two "iterators" go through the given list, one at 1-step speed, the other at 2-step speed.
-		 * When the faster reaches end of list, the slower is at the mid-point
-		 */
 		while (tFast != null) {
 			tFast = tFast.next;
 			if (tFast != null) {
@@ -176,6 +196,12 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		return tSlow;
 	}
 	
+	/**
+	 * Merge two sorted lists such that the result is a sorted list
+	 * @param left
+	 * @param right
+	 * @return head
+	 */
 	private node merge(node left, node right) {
 		node curr;
 		
@@ -214,7 +240,6 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 			curr.next = right;
 		}
 		
-		// return head of new (sorted) list
 		return head;
 	}
 	

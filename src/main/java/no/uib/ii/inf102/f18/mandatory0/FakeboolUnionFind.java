@@ -1,5 +1,8 @@
 package no.uib.ii.inf102.f18.mandatory0;
 
+/**
+ * @author Carl August Gjørsvik
+ */
 public class FakeboolUnionFind {
 
     public static void main(String[] args) {
@@ -25,12 +28,16 @@ public class FakeboolUnionFind {
         io.close();
     }
     
+    /**
+     * Find the roots to unite, make the lesser (oldest) of those root of the combined set
+     * @param id	array representing the parent-tree of accounts
+     * @param p
+     * @param q
+     */
     public static void union(int[] id, int p, int q) {
-        //find the roots to unite
         int x = find(id, p);
         int y = find(id, q);
-        
-        //make the oldest (lower value) root of the other
+
         if (x < y) {
             id[y] = x;
         } else {
@@ -38,6 +45,13 @@ public class FakeboolUnionFind {
         }
     }
     
+    /**
+     * Find the root of @param p by "climbing" the parent tree until id[p] refers to itself, 
+     * including some path compression on the way
+     * @param id
+     * @param p
+     * @return p	the root
+     */
     public static int find(int[] id, int p) {
         //find root of set, with an implementation of path compression
         while (id[p] != p) {
