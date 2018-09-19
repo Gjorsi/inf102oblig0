@@ -8,21 +8,21 @@ public class TrollBook {
 		
 		Kattio io = new Kattio(System.in, System.out);
 		
-		int n = io.getInt();
-		int v;
-		String s;
+		int nPages = io.getInt();
+		int pageNr;
+		String word;
 		
-		for (int i=0; i<n ; i++) {
-			s = io.getWord();
-			v = io.getInt();
-			list.add(new map<Integer, String>(v, s));
+		for (int i=0; i<nPages ; i++) {
+			word = io.getWord();
+			pageNr = io.getInt();
+			list.add(new map<Integer, String>(pageNr, word));
 		}
 		
 		list.sort();
 		
 		StringBuilder sb = new StringBuilder();
 		
-		for (int i=0; i<n ; i++) {
+		for (int i=0; i<nPages ; i++) {
 			sb.append(list.remove(0).toString()).append(" ");
 		}
 		

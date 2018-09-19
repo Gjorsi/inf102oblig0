@@ -6,6 +6,7 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 
 	private int size;
 	private node first;
+	private node last;
 
 	public Iterator<E> iterator() {
 		if (size < 1) return null;
@@ -29,8 +30,14 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	public void add(E element) {
 		if (element == null) return;
 
-		node t = new node(element, first);
-		first = t;
+		if (size<1) {
+			first = new node(element, null);
+			last = first;
+		} else {
+			last.next = new node(element, null);
+			last = last.next;
+		}
+		
 		size++;
 	}
 
@@ -41,6 +48,9 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		if (index == 0) {
 			t = new node(element, first);
 			first = t;
+		} else if (index == size) {
+			last.next = new node(element, null);
+			last = last.next;
 		} else {
 			node r = findNodeBefore(index);
 			t = new node(element, r.next);
@@ -51,12 +61,14 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 
 	public void clear() {
 		first = null;
+		last = null;
 		size = 0;
 	}
 
 	public E get(int index) {
 		if (index >= this.size || index < 0) return null;
 		
+		if (index == size-1) return last.val;
 		if (index == 0) return first.val;
 		
 		return findNodeBefore(index).next.val;
@@ -70,18 +82,24 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 		if (index >= size || index < 0) return null;
 		
 		node t;
-		if (index == 0) {
+		if (size == 1) {
 			t = first;
-			first = t.next;
-			size--;
-			return t.val;
+			first = last = null;
+		} else if (index == 0) {
+			t = first;
+			first = first.next;
+		} else if (index == size-1) {
+			t = last;
+			last = findNodeBefore(index);
+			last.next = null;
+		} else {
+			node r = findNodeBefore(index);
+			t = r.next;
+			r.next = t.next;
 		}
 		
-		t = findNodeBefore(index);
-		node r = t.next;
-		t.next = r.next;
 		size--;
-		return r.val;
+		return t.val;
 		
 	}
 
@@ -102,6 +120,7 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	}
 	
 	private node findNodeBefore(int index) {
+		
 		node t = first;
 		for (int i=1; i<index; i++) {
 			t = t.next;
@@ -112,6 +131,9 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	
 	public void sort() {		
 		first = mergeSort(first);
+		
+		//last node might have been moved during sort, need to find it again
+		last = findNodeBefore(size-1).next;
 	}
 	
 	private node mergeSort(node t) {
