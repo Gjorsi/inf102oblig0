@@ -35,7 +35,7 @@ public class FakeboolQuickFind {
      * @param q
      */
     public static void union(int[] id, int p, int q) {
-        //get the oldest account associated with p or q, and set that as id
+        
         int x = Math.min(id[p], id[q]);
         
         int y = Math.max(id[p], id[q]);

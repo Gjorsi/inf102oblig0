@@ -10,7 +10,7 @@ public class FakeboolUnionFind {
         
         int n = io.getInt();
         int m = io.getInt();
-        final String DAEMON = "DAEMON";        
+        final String DAEMON = "DAEMON";
         int[] id = new int[n];
         
         //fill array, nodes point to themselves
@@ -53,7 +53,6 @@ public class FakeboolUnionFind {
      * @return p	the root
      */
     public static int find(int[] id, int p) {
-        //find root of set, with an implementation of path compression
         while (id[p] != p) {
             id[p] = id[id[p]];
             p = id[p];

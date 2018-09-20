@@ -1,19 +1,20 @@
 package no.uib.ii.inf102.f18.mandatory0;
 import java.io.IOException;
 
+/**
+ * Note that when giving input by console, this implementation needs EOF to return answer
+ * 
+ * This algorithm builds a binary tree with operators as standard nodes, and operands as leaf nodes.
+ * The Node class also implements a simple stack structure by keeping track of previous node in stack. 
+ * (the top of the stack is tracked by variable topOfStack in the while loop)
+ * @author Carl August Gjørsvik
+ */
 public class ReversePolish {
 
     public static void main(String[] args) throws IOException {
         new ReversePolish();
     }
     
-    /*
-     * Note that when giving input by console, this implementation needs EOF to return answer
-     * 
-     * This algorithm builds a binary tree with operators as standard nodes, and operands as leaf nodes.
-     * The Node class also implements a simple stack structure by keeping track of previous node in stack. 
-     * (the top of the stack is tracked by variable topOfStack in the while loop)
-     */
     public ReversePolish () throws IOException {
         Kattio io = new Kattio(System.in, System.out);
 
@@ -31,8 +32,8 @@ public class ReversePolish {
             //input is an operator, "pop" two values, create a new operator node and return it to the "stack"
             } else {
                 n1 = topOfStack;
-                n2 = topOfStack.getPrev();
-                topOfStack = n2.getPrev();
+                n2 = topOfStack.prevInStack;
+                topOfStack = n2.prevInStack;
                 
                 if (topOfStack == null) {
                 	topOfStack = new Node(null, s, n2, n1);
@@ -46,19 +47,6 @@ public class ReversePolish {
         io.write(sb.toString());
         io.close();
     }
-    
-    class SimpleStack<E> {
-    	private Element top;
-    	public SimpleStack() {
-    		
-    	}
-    	
-    	class Element {
-    		private Element prev;
-    		public Element() {
-    	}
-    }
-    } 
     
     class Node{
         String content;
@@ -84,10 +72,6 @@ public class ReversePolish {
             this.left = l;
             this.right = r;
             this.prevInStack = prev;
-        }
-        
-        public Node getPrev() {
-        	return this.prevInStack;
         }
         
         /*

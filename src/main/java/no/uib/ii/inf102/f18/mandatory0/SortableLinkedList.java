@@ -3,7 +3,7 @@ package no.uib.ii.inf102.f18.mandatory0;
 import java.util.Iterator;
 
 /**
- * Implementation of ISortableList<E> for INF102.mandatory0
+ * Implementation of {@link ISortableList} for INF102.mandatory0
  * 
  * @author Carl August Gjørsvik
  *

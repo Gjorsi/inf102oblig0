@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for SortableArrayList
+ * Unit test for SortableArrayList repurposed to test {@link SortableLinkedList}
  */
 public class SortableLinkedListTest extends TestCase {
     private ISortableList<Integer> iList;
