@@ -47,6 +47,19 @@ public class ReversePolish {
         io.close();
     }
     
+    class SimpleStack<E> {
+    	private Element top;
+    	public SimpleStack() {
+    		
+    	}
+    	
+    	class Element {
+    		private Element prev;
+    		public Element() {
+    	}
+    }
+    } 
+    
     class Node{
         String content;
         Node left;
