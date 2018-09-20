@@ -4,7 +4,7 @@ public class TrollBook {
 
 	public static void main(String[] args) {
 		
-		SortableLinkedList<map<Integer, String>> list = new SortableLinkedList<>();
+		SortableLinkedList<map<Integer, String>> list = new SortableLinkedList<map<Integer, String>>();
 		
 		Kattio io = new Kattio(System.in, System.out);
 		
