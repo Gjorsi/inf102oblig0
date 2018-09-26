@@ -118,11 +118,11 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	}
 
 	public E[] toArray(E[] a) {
-		//nothing to insert into the array
-		if (size==0) return a;
 		
 		if (a.length < size) {
-			throw new IndexOutOfBoundsException("Size of array is insufficient to insert elements of the linkedlist");
+			throw new IndexOutOfBoundsException("Size of array is insufficient to insert elements of the linkedlist" + 
+					" \nLinkedlist size: " + size + 
+					" \nArray size: " + a.length);
 		}
 		
 		node t = first;
