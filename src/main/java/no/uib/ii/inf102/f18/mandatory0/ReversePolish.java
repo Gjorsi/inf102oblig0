@@ -1,22 +1,18 @@
 package no.uib.ii.inf102.f18.mandatory0;
-import java.io.IOException;
 
 /**
- * Note that when giving input by console, this implementation needs EOF to return answer
+ * Note that when giving input by console, this implementation needs EOF to return answer. <br>
  * 
  * This algorithm builds a binary tree with operators as standard nodes, and operands as leaf nodes.
  * The Node class also implements a simple stack structure by keeping track of previous node in stack. 
  * (the top of the stack is tracked by variable topOfStack in the while loop)
+ * 
  * @author Carl August Gjørsvik
  */
 public class ReversePolish {
 
-    public static void main(String[] args) throws IOException {
-        new ReversePolish();
-    }
-    
-    public ReversePolish () throws IOException {
-        Kattio io = new Kattio(System.in, System.out);
+    public static void main(String[] args) {
+    	Kattio io = new Kattio(System.in, System.out);
 
         Node topOfStack = null, n1, n2;
         String s;
@@ -48,14 +44,17 @@ public class ReversePolish {
         io.close();
     }
     
-    class Node{
+    static class Node{
         String content;
         Node left;
         Node right;
         Node prevInStack;
-        
-        /*
-         * create leaf node
+
+        /**
+         * Create leaf node
+         * 
+         * @param prev Link to previous node in stack
+         * @param s Content of this node. For a leaf node, it should be a number
          */
         public Node(Node prev, String s) {
             this.content = s;
@@ -64,19 +63,26 @@ public class ReversePolish {
             this.prevInStack = prev;
         }
         
-        /*
-         * create operator node
+        /**
+         * Create operator node
+         * 
+         * @param prev Link to previous node in stack
+         * @param s Content of this node. Should be one of the following: { +, -, *, /}
+         * @param left The left child of this operator node
+         * @param right The right child of this operator node
          */
-        public Node(Node prev, String s, Node l, Node r) {
+        public Node(Node prev, String s, Node left, Node right) {
             this.content = s;
-            this.left = l;
-            this.right = r;
+            this.left = left;
+            this.right = right;
             this.prevInStack = prev;
         }
         
-        /*
-         * recursive method to create the desired output in the form of a StringBuilder.
+        /**
+         * Recursive method to create the desired output in the form of a StringBuilder. <br>
          * This is achieved with a DFS-like approach, left-to-right.
+         * 
+         * @param sb The StringBuilder used to concatenate the values of the tree in the correct order
          */
         public void nodeToString(StringBuilder sb) {
             if (left == null) {

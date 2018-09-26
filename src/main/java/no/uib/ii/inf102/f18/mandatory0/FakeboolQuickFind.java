@@ -1,5 +1,8 @@
 package no.uib.ii.inf102.f18.mandatory0;
 
+/**
+ * @author Carl August Gjørsvik
+ */
 public class FakeboolQuickFind {
 
     public static void main(String[] args) {
@@ -28,7 +31,7 @@ public class FakeboolQuickFind {
     }
     
     /**
-     * Union sets containing p and q, setting the lesser(oldest) root as root of the combined set
+     * Union the sets containing p and q, setting the lesser(oldest) root as root of the combined set
      * (to maintain oldest account as root)
      * @param id	the array representing oldest known account associated with any given account in range
      * @param p

@@ -3,13 +3,15 @@ package no.uib.ii.inf102.f18.mandatory0;
 import java.util.Iterator;
 
 /**
- * Implementation of {@link ISortableList} for INF102.mandatory0
+ * Implementation of {@link ISortableList} for INF102.mandatory0 <br>
+ * 
+ * A singly-linked list. <br>
+ * Access to index 0 and size-1 is fast, but other indexes will be accessed iteratively from 0.
  * 
  * @author Carl August Gjørsvik
  *
  * @param <E>
  */
-
 public class SortableLinkedList<E extends Comparable<E>> implements ISortableList<E> {
 
 	private int size;
@@ -76,14 +78,14 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	public E get(int index) {
 		if (index >= this.size || index < 0) return null;
 		
-		if (index == size-1) return last.val;
 		if (index == 0) return first.val;
+		if (index == size-1) return last.val;
 		
 		return findNodeBefore(index).next.val;
 	}
 
 	public boolean isEmpty() {
-		return (size<1);
+		return (size==0);
 	}
 
 	public E remove(int index) {
@@ -116,13 +118,22 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	}
 
 	public E[] toArray(E[] a) {
-		//nothing to put into array, or array is not big enough to hold the linkedlist
-		if (size<1 || a.length<size) return a;
+		//nothing to insert into the array
+		if (size==0) return a;
+		
+		if (a.length < size) {
+			throw new IndexOutOfBoundsException("Size of array is insufficient to insert elements of the linkedlist");
+		}
 		
 		node t = first;
-		for (int i=0; i<size; i++) {
-			a[i] = t.val;
-			t = t.next;
+		for (int i=0; i<a.length; i++) {
+			if(i<size) {
+				a[i] = t.val;
+				t = t.next;
+			} else {
+				a[i] = null;
+			}
+			
 		}
 		return a;
 	}
@@ -131,8 +142,9 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	/**
 	 * Returns the node linking to the given index. 
 	 * This is necessary to be able to insert / remove nodes at specific indexes.
-	 * @param index
-	 * @return t
+	 * 
+	 * @param index index of the node of which we want the previous node
+	 * @return node linking to the node at index
 	 */
 	private node findNodeBefore(int index) {
 		
@@ -152,10 +164,11 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	}
 	
 	/**
-	 * find the middle of given list starting with node t.
-	 * Split into two lists, equally long +/- 1
-	 * Repeat for the two lists created by splitting (recursively)
-	 * Merge on the way up the tree
+	 * find the middle of given list starting with node t. <br>
+	 * Split into two lists, equally long +/- 1. <br>
+	 * Repeat for the two lists created by splitting (recursively). <br>
+	 * Merge on the way up the tree.
+	 * 
 	 * @param t		the leading node of the list to sort
 	 * @return {@link #merge(node, node)} 
 	 	* the leading node of the list, now sorted
@@ -177,10 +190,11 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	}
 	
 	/**
-	 * two "iterators" go through the given list, one at 1-step speed, the other at 2-step speed.
+	 * two "iterators" go through the given list, one at 1-step speed, the other at 2-step speed. <br>
 	 * When the faster reaches end of list, the slower is at the mid-point
+	 * 
 	 * @param tSlow		the head of the given list, this parameter is used as the slow iterator
-	 * @return tSlow	this should at return be a reference to the middle element of the list
+	 * @return reference to the middle element of the list
 	 */
 	private node findMid(node tSlow) {
 		if (tSlow == null) return tSlow;
@@ -198,9 +212,10 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	
 	/**
 	 * Merge two sorted lists such that the result is a sorted list
-	 * @param left
-	 * @param right
-	 * @return head
+	 * 
+	 * @param left head of the left list
+	 * @param right head of the right list
+	 * @return head of the sorted list made up of the two inputs
 	 */
 	private node merge(node left, node right) {
 		node curr;
@@ -246,6 +261,13 @@ public class SortableLinkedList<E extends Comparable<E>> implements ISortableLis
 	class node {
 		E val;
 		node next;
+		
+		/**
+		 * Node in the linkedlist
+		 * 
+		 * @param value    The value contained in this position of the linkedlist
+		 * @param next    Reference to the next node, should be null if this node is end of linkedlist
+		 */
 		public node(E value, node next) {
 			val = value;
 			this.next = next;
