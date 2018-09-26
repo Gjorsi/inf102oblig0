@@ -12,13 +12,13 @@ package no.uib.ii.inf102.f18.mandatory0;
 public class ReversePolish {
 
     public static void main(String[] args) {
-    	Kattio io = new Kattio(System.in, System.out);
+        Kattio io = new Kattio(System.in, System.out);
 
         Node topOfStack = null, n1, n2;
         String s;
         
         while (io.hasMoreTokens()) {
-        	
+            
             s = io.getWord();
             
             //input is a number, add it to the stack
@@ -32,9 +32,9 @@ public class ReversePolish {
                 topOfStack = n2.prevInStack;
                 
                 if (topOfStack == null) {
-                	topOfStack = new Node(null, s, n2, n1);
+                    topOfStack = new Node(null, s, n2, n1);
                 } else {
-                	topOfStack = new Node(topOfStack, s, n2, n1);
+                    topOfStack = new Node(topOfStack, s, n2, n1);
                 }      
             }
         }
@@ -86,7 +86,7 @@ public class ReversePolish {
          */
         public void nodeToString(StringBuilder sb) {
             if (left == null) {
-            	// leaf node, just append the value
+                // leaf node, just append the value
                 sb.append(content);
             } else {
                 sb.append("(");

@@ -30,7 +30,7 @@ public class FakeboolUnionFind {
     
     /**
      * Find the roots to unite, make the lesser (oldest) of those root of the combined set
-     * @param id	array representing the parent-tree of accounts
+     * @param id    array representing the parent-tree of accounts
      * @param p
      * @param q
      */
@@ -50,7 +50,7 @@ public class FakeboolUnionFind {
      * including some path compression on the way
      * @param id
      * @param p
-     * @return p	the root
+     * @return p    the root
      */
     public static int find(int[] id, int p) {
         while (id[p] != p) {

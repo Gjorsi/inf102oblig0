@@ -19,7 +19,7 @@ public class FakeboolQuickFind {
         }
         
         for (int i=0; i<m; i++) {
-        	union(id, io.getInt(), io.getInt());
+            union(id, io.getInt(), io.getInt());
         }
         
         for (int i=0; i<n; i++) {
@@ -33,7 +33,7 @@ public class FakeboolQuickFind {
     /**
      * Union the sets containing p and q, setting the lesser(oldest) root as root of the combined set
      * (to maintain oldest account as root)
-     * @param id	the array representing oldest known account associated with any given account in range
+     * @param id    the array representing oldest known account associated with any given account in range
      * @param p
      * @param q
      */
